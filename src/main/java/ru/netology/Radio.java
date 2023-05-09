@@ -1,54 +1,37 @@
 package ru.netology;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Radio {
-    private int currentRadiostation;
-    private int currentVolume;
-
-    public int getCurrentRadiostation() {
-        return currentRadiostation;
-    }
-
-    public void setCurrentRadiostation(int newCurrentRadiostation) {
-        if (newCurrentRadiostation < 0) {
-            return;
-        }
-        if (newCurrentRadiostation > 9) {
-            return;
-        }
-        currentRadiostation = newCurrentRadiostation;
-    }
+    private int minRadioStation = 0;
+    private int maxRadioStation = 9;
+    private int currentRadiostation = minRadioStation;
+    private int minVolume = 0;
+    private int maxVolume = 100;
+    private int currentVolume = minVolume;
 
     public void nextRadiostation() {
-        currentRadiostation = currentRadiostation >= 9 ? 0 : ++currentRadiostation;
+        currentRadiostation = currentRadiostation >= maxRadioStation ? 0 : ++currentRadiostation;
         setCurrentRadiostation(currentRadiostation);
     }
 
     public void prevRadiostation() {
-        currentRadiostation = currentRadiostation <= 0 ? 9 : --currentRadiostation;
+        currentRadiostation = currentRadiostation <= 0 ? maxRadioStation : --currentRadiostation;
         setCurrentRadiostation(currentRadiostation);
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0) {
-            return;
-        }
-        if (newCurrentVolume > 100) {
-            return;
-        }
-        currentVolume = newCurrentVolume;
-    }
-
     public void increaseVolume() {
-        currentVolume = currentVolume <= 0 ? 100 : ++currentVolume;
+        currentVolume = currentVolume >= maxVolume ? maxVolume : ++currentVolume;
         setCurrentVolume(currentVolume);
     }
 
     public void decreaseVolume() {
-        currentVolume = currentVolume <= 0 ? 100 : --currentVolume;
+        currentVolume = currentVolume > maxVolume ? 0 : --currentVolume;
         setCurrentVolume(currentVolume);
     }
 }
